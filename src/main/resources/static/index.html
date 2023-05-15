@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Release Note</title>
+</head>
+<body>
+<h1 id="title"></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Version</th>
+    <th>Release Date</th>
+    <th>Status</th>
+    <th>Title</th>
+    <th>Links</th>
+  </tr>
+  </thead>
+  <tbody id="jsonDataBody">
+  <!-- JSON data will be added dynamically using JavaScript -->
+  </tbody>
+</table>
+
+<script>
+  fetch('/feature')
+          .then(response => response.json())
+          .then(data => {
+            const jsonDataBody = document.getElementById('jsonDataBody');
+            data.forEach(item => {
+              const row = document.createElement('tr');
+
+              const versionCell = document.createElement('td');
+              versionCell.innerText = `${item.version.project} ${item.version.major}.${item.version.minor}.${item.version.patch}`;
+              row.appendChild(versionCell);
+
+              const releaseDateCell = document.createElement('td');
+              releaseDateCell.innerText = item.releaseDate;
+              row.appendChild(releaseDateCell);
+
+              const statusCell = document.createElement('td');
+              statusCell.innerText = item.status;
+              row.appendChild(statusCell);
+
+              const titleCell = document.createElement('td');
+              titleCell.innerText = item.title;
+              row.appendChild(titleCell);
+
+              const linksCell = document.createElement('td');
+              const linksList = document.createElement('ul');
+              item.linkList.forEach(link => {
+                const linkItem = document.createElement('li');
+                const linkAnchor = document.createElement('a');
+                linkAnchor.href = link.url;
+                linkAnchor.innerText = link.name;
+                linkItem.appendChild(linkAnchor);
+                linksList.appendChild(linkItem);
+              });
+              linksCell.appendChild(linksList);
+              row.appendChild(linksCell);
+
+              jsonDataBody.appendChild(row);
+            });
+          })
+          .catch(error => console.error(error));
+</script>
+</body>
+</html>
