@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Desktop Release Notes</title>
+</head>
+<body>
+<h1>GitHub Desktop Release Notes</h1>
+<ul>
+  <!-- 여기에 Thymeleaf를 사용하여 GitHub Desktop 버전 및 릴리즈 노트 링크를 반복적으로 생성합니다 -->
+  <li th:each="release : ${releases}">
+    <a th:href="${release.link}" th:text="${release.version}"></a>
+  </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Input Form</title>
+</head>
+<body>
+<h1>Input Form</h1>
+
+<form id="inputForm" action="/feature" method="post" onsubmit="submitForm(event)">
+    <div>
+        <label for="project">Project:</label>
+        <input type="text" id="project" name="project" required>
+    </div>
+    <div>
+        <label for="major">Major:</label>
+        <input type="number" id="major" name="major" required>
+    </div>
+    <div>
+        <label for="minor">Minor:</label>
+        <input type="number" id="minor" name="minor" required>
+    </div>
+    <div>
+        <label for="patch">Patch:</label>
+        <input type="number" id="patch" name="patch" required>
+    </div>
+<!--    <div>-->
+<!--        <label for="releaseDate">Release Date:</label>-->
+<!--        <input type="date" id="releaseDate" name="releaseDate" required>-->
+<!--    </div>-->
+    <div>
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" required>
+    </div>
+    <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+        <label for="linkName">Link Name:</label>
+        <input type="text" id="linkName" name="linkName" required>
+    </div>
+    <div>
+        <label for="linkUrl">Link URL:</label>
+        <input type="url" id="linkUrl" name="linkUrl" required>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        const form = document.getElementById('inputForm');
+        const formData = new FormData(form);
+
+        const version = {
+            project: formData.get('project'),
+            major: parseInt(formData.get('major')),
+            minor: parseInt(formData.get('minor')),
+            patch: parseInt(formData.get('patch'))
+        };
+
+        const releaseDate = formData.get('releaseDate');
+        const status = formData.get('status');
+        const title = formData.get('title');
+
+        const linkList = [
+            {
+                name: formData.get('linkName'),
+                url: formData.get('linkUrl')
+            }
+        ];
+
+        const data = {
+            version: version,
+            // releaseDate: releaseDate,
+            status: status,
+            title: title,
+            linkList: linkList
+        };
+
+        // 전송할 데이터 확인
+        console.log(data);
+
+        // 여기에서 데이터를 서버로 전송하거나 필요한 처리를 수행할 수 있습니다.
+        // 폼 데이터를 서버로 전송합니다.
+        document.getElementById("inputForm").submit();
+    }
+</script>
+</body>
+</html>
